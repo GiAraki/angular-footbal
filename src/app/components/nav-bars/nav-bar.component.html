@@ -1,0 +1,11 @@
+<div class="nav-bar-layout">
+  <mat-button-toggle-group
+    [(ngModel)]="selectedButton"
+  >
+    <ng-container *ngFor="let link of links">
+      <mat-button-toggle value="link.leagueId">{{
+        link.name
+      }}</mat-button-toggle>
+    </ng-container>
+  </mat-button-toggle-group>
+</div>

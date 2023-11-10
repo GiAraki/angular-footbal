@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.animate__animated.animate__backInRight {
+  --animate-duration: 1.4s;
+}
+.animate__animated.animate__backInLeft {
+  --animate-duration: 1.4s;
+}
+.animate__animated.animate__backInUp {
+  --animate-duration: 1.4s;
+}
+.animate__animated.animate__backInDown {
+  --animate-duration: 1.4s;
+}

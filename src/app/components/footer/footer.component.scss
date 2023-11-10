@@ -1,0 +1,34 @@
+footer {
+  min-height: 140px;
+  background-color: #363636;
+}
+
+
+.icons-grid {
+  width: 100%;
+  height: 87px;
+  display: grid;
+  grid-template-columns: 70px 70px 70px 70px;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
+  img {
+    width: 50px;
+  }
+  img:hover{
+    animation: animate__flipInX; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 2s; /* don't forget to set a duration! */
+  }
+}
+
+.footnote {
+  width: 100%;
+  text-align: center;
+  color: #8f9aa7;
+  font-size: 10pt;
+  opacity: 0.6;
+  .highlight {
+    color: #e31b6d;
+    font-family: 'Open Sans';
+  }
+}

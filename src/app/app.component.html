@@ -1,0 +1,5 @@
+<div class="page-layout">
+  <app-nav-bar [links]="navBarLinks" (changeLink)="getData($event)"></app-nav-bar>
+  <router-outlet></router-outlet>
+</div>
+<app-footer></app-footer>
