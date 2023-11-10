@@ -1,3 +1,4 @@
+import { League } from './../../models/standings-response';
 import { HttpParams } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -16,7 +17,7 @@ import { NavBarLinks } from 'src/app/models/nav-bar-links';
 })
 export class NavBarComponent implements OnInit {
   @Input() links: NavBarLinks[] = [];
-  @Output() newLinkEvent: EventEmitter<string> = new EventEmitter<string>();
+  @Output() newLinkEvent: EventEmitter<number> = new EventEmitter<number>();
 
   selectedButton: string = '';
 
@@ -26,8 +27,9 @@ export class NavBarComponent implements OnInit {
     this.selectedButton =  this.links[0].id;
   }
 
-  changeLink(){
-    this.newLinkEvent.emit(this.selectedButton);
+  changeLink(leagueId: number): void{
+    debugger
+    this.newLinkEvent.emit(leagueId);
   }
 
 

@@ -14,7 +14,6 @@ export class SportService {
 
     // Define os cabeçalhos
     const headers = new HttpHeaders({
-      'x-apisports-host': 'v3.football.api-sports.io',
       'x-apisports-key': environment.apikey
     });
 

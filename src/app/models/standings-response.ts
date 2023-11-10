@@ -23,7 +23,7 @@ export interface League {
     logo: string;
     flag: string;
     season: number;
-    standings: Standings[][];
+    standings: Standings[];
   };
 }
 

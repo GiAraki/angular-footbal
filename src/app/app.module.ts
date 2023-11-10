@@ -9,6 +9,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { TableComponent } from './components/table/table.component';
 import { SportService } from './services/sport.service';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -21,9 +22,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatSnackBarModule,
     NavBarComponent,
     FooterComponent,
-    TableComponent
+    TableComponent,
+    HttpClientModule
   ],
-  providers: [SportService],
+  providers: [SportService, HttpClient],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
