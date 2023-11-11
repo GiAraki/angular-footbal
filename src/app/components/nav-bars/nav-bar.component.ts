@@ -25,10 +25,10 @@ export class NavBarComponent implements OnInit {
 
   ngOnInit() {
     this.selectedButton =  this.links[0].id;
+    this.changeLink(this.links[0].leagueId);
   }
 
   changeLink(leagueId: number): void{
-    debugger
     this.newLinkEvent.emit(leagueId);
   }
 

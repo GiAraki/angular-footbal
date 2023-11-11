@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavBarLinks } from './models/nav-bar-links';
-import { Errors, League, StandingsResponse } from './models/standings-response';
+import { Errors, StandingsResponse } from './models/standings-response';
 import { HttpParams } from '@angular/common/http';
 import { SportService } from './services/sport.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -14,7 +14,6 @@ import { Subject, takeUntil } from 'rxjs';
 export class AppComponent implements OnInit, OnDestroy {
   private destroy$: Subject<void> = new Subject<void>();
   currentYear!: number;
-  sessionData!: League;
 
   navBarLinks: NavBarLinks[] = [
     { id: 'englandSelect', leagueId: 39, name: 'England', isSelected: true },
@@ -33,9 +32,13 @@ export class AppComponent implements OnInit, OnDestroy {
 
   checkSession(selectedButton: number): void {
     let getSession = sessionStorage.getItem(selectedButton.toString());
-    getSession
-      ? (this.sessionData = JSON.parse(getSession))
-      : this.getData(selectedButton);
+    if(getSession){
+      let session = JSON.parse(getSession);
+      this.sportService.setSessionData(session.standings[0])
+    }
+    else{
+      this.getData(selectedButton);
+    }
   }
 
   getData(selectedButton: number): void {
@@ -50,7 +53,7 @@ export class AppComponent implements OnInit, OnDestroy {
       .getStandings(params)
       .pipe(takeUntil(this.destroy$))
       .subscribe((data: StandingsResponse) => {
-        //this.sessionData = data.response[0].league;
+        this.sportService.setSessionData(data.response[0].league.standings[0]);
         sessionStorage.setItem(
           selectedButton.toString(),
           JSON.stringify(data.response[0].league)

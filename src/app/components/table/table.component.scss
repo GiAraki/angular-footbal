@@ -6,10 +6,13 @@
 .example-table-container {
   position: relative;
   min-height: 200px;
-  max-height: 400px;
+  max-height: 700px;
+  margin-top: 60px;
   overflow: auto;
 }
-
+table{
+  background-color: rgba(255, 255, 255, 0.7) !important;
+}
 table {
   width: 100%;
 }
@@ -40,4 +43,8 @@ table {
 
 .mat-column-created {
   max-width: 124px;
+}
+
+img {
+  width: 30px;
 }

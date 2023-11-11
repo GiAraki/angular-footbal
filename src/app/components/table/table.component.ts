@@ -1,28 +1,23 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {MatTableModule} from '@angular/material/table';
-import { BrowserModule } from '@angular/platform-browser';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { Standings } from 'src/app/models/standings';
-
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [BrowserModule, MatProgressSpinnerModule, MatTableModule],
+  imports: [MatProgressSpinnerModule, MatTableModule, CommonModule],
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
-export class TableComponent implements AfterViewInit {
-  displayedColumns: string[] = ['', '', 'Name', 'Games', 'W', 'L','D', 'Goal Difference', 'Points'];
-  data: Standings[] = [];
-
-  resultsLength = 0;
-  isLoadingResults = true;
+export class TableComponent  {
+  displayedColumns: string[] = ['Id', 'Icon', 'Name', 'Games', 'W', 'L','D', 'Goal Difference', 'Points'];
+  @Input() data: Standings[] = [];
+  @Input() isLoadingResults: boolean = true;
 
   constructor() {}
 
-  ngAfterViewInit() {
 
 
-  }
 }

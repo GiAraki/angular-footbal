@@ -1,25 +1,66 @@
-<!-- <div class="example-container mat-elevation-z8">
-  <ng-container
-    class="example-loading-shade" *ngIf="isLoadingResults" >
-    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
-  </ng-container>
+<div class="example-container mat-elevation-z8">
+
   <div class="example-table-container">
     <table
       mat-table
       [dataSource]="data"
       class="example-table"
-      matSort
-      matSortActive="created"
+      matSortActive="Points"
       matSortDisableClear
       matSortDirection="desc"
     >
-      <ng-container matColumnDef="number">
-        <th mat-header-cell *matHeaderCellDef>#</th>
-        <td mat-cell *matCellDef="let row">{{ row.number }}</td>
+
+      <ng-container matColumnDef="Id">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let row">{{ row?.team?.id }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="Icon">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let row" class="logo"><img [src]="row?.team?.logo" label="logo"></td>
+      </ng-container>
+
+      <ng-container matColumnDef="Name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let row">{{ row?.team?.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="Games">
+        <th mat-header-cell *matHeaderCellDef>Games</th>
+        <td mat-cell *matCellDef="let row">{{ row?.all?.played }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="W">
+        <th mat-header-cell *matHeaderCellDef>W</th>
+        <td mat-cell *matCellDef="let row">{{ row?.all?.win }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="L">
+        <th mat-header-cell *matHeaderCellDef>L</th>
+        <td mat-cell *matCellDef="let row">{{ row?.all?.lose }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="D">
+        <th mat-header-cell *matHeaderCellDef>D</th>
+        <td mat-cell *matCellDef="let row">{{ row?.all?.draw }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="Goal Difference">
+        <th mat-header-cell *matHeaderCellDef>Goal Difference</th>
+        <td mat-cell *matCellDef="let row">{{ row?.goalsDiff }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="Points">
+        <th mat-header-cell *matHeaderCellDef>Points</th>
+        <td mat-cell *matCellDef="let row">{{ row?.points }}</td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
+    <ng-container class="example-loading-shade" *ngIf="isLoadingResults">
+      <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    </ng-container>
+
   </div>
-</div> -->
+</div>
