@@ -1,16 +1,14 @@
 <mat-card>
   <mat-card-content class="team-grid">
-    <ng-container *ngIf="dataSeassion">
-      <ng-template *ngFor="let data of dataSeassion">
+      <ng-container *ngFor="let data of dataSeassion">
         <div><img [src]="data.teams.home.logo" label="logo" /></div>
         <div>{{ data.teams.home.name }}</div>
         <div>{{ data.score.fulltime.home }}</div>
         <div>-</div>
         <div>{{ data.score.fulltime.away }}</div>
-        <div>{{ data.teams.away.logo }}</div>
         <div>{{ data.teams.away.name }}</div>
-      </ng-template>
-    </ng-container>
+        <div><img [src]="data.teams.away.logo" label="logo" /></div>
+      </ng-container>
     <ng-container class="example-loading-shade" *ngIf="isLoading">
       <mat-spinner *ngIf="isLoading"></mat-spinner>
     </ng-container>
