@@ -30,7 +30,7 @@ export class NavBarComponent implements OnInit {
     if (getSession) {
       let session = JSON.parse(getSession);
       this.selectedButton = session.id;
-      this.changeLink(session.leagueId);
+      this.changeLink(session);
     } else {
       sessionStorage.setItem('selectedLink', JSON.stringify(this.links[0]));
       this.selectedButton = this.links[0].id;
@@ -40,6 +40,7 @@ export class NavBarComponent implements OnInit {
 
   changeLink(link: NavBarLinks): void {
     sessionStorage.setItem('selectedLink', JSON.stringify(link));
-    this.newLinkEvent.emit(link.leagueId);
+      this.newLinkEvent.emit(link.leagueId);
+
   }
 }
