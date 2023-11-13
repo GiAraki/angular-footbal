@@ -1,6 +1,8 @@
 import { HttpClientModule, HttpParams } from '@angular/common/http';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { TeamCardComponent } from 'src/app/components/team-card/team-card.component';
 import { FixtureResponse, Fixtures } from 'src/app/models/fixtures';
@@ -10,7 +12,7 @@ import { SportService } from 'src/app/services/sport.service';
 @Component({
   selector: 'app-standings-league-detail',
   standalone: true,
-  imports: [MatSnackBarModule, HttpClientModule, TeamCardComponent],
+  imports: [MatSnackBarModule, HttpClientModule, TeamCardComponent, MatButtonModule],
   templateUrl: './standings-league-detail.component.html',
   styleUrls: ['./standings-league-detail.component.css'],
 })
@@ -23,7 +25,8 @@ export class StandingsLeagueDetailComponent implements OnInit, OnDestroy {
 
   constructor(
     private sportService: SportService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -39,6 +42,10 @@ export class StandingsLeagueDetailComponent implements OnInit, OnDestroy {
     } else {
       this.getData();
     }
+  }
+
+  back(){
+    this.router.navigate(['/list']);
   }
 
   getData(): void {

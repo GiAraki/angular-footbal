@@ -1,18 +1,11 @@
-import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NavBarLinks } from 'src/app/models/nav-bar-links';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-nav-bar',
@@ -21,32 +14,31 @@ import { Subject, takeUntil } from 'rxjs';
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss'],
 })
-export class NavBarComponent implements OnInit, OnDestroy {
+export class NavBarComponent implements OnInit {
   @Input() links: NavBarLinks[] = [];
   @Output() newLinkEvent: EventEmitter<number> = new EventEmitter<number>();
-  exibirComponente: boolean = true;
-  private destroy$: Subject<void> = new Subject<void>();
   selectedButton: string = '';
 
-  constructor(private route: ActivatedRoute) {}
+  constructor() {}
 
   ngOnInit(): void {
-    this.route.params
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((params: Params) => {
-        this.exibirComponente = !params['id'];
-      });
+    this.checkPreviousLink();
+  }
 
-    this.selectedButton = this.links[0].id;
-    this.changeLink(this.links[0].leagueId);
+  checkPreviousLink() {
+    let getSession = sessionStorage.getItem(this.selectedButton);
+    if (getSession) {
+      let session = JSON.parse(getSession);
+      this.selectedButton = session.id;
+      this.changeLink(session.leagueId);
+    } else {
+      sessionStorage.setItem(this.links[0].id, JSON.stringify(this.links[0]));
+      this.selectedButton = this.links[0].id;
+      this.changeLink(this.links[0].leagueId);
+    }
   }
 
   changeLink(leagueId: number): void {
     this.newLinkEvent.emit(leagueId);
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 }

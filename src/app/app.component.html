@@ -1,5 +1,10 @@
 <div class="page-layout">
-  <app-nav-bar [links]="navBarLinks" (newLinkEvent)="checkSession($event)"></app-nav-bar>
+  <ng-container *ngIf="exibirComponente">
+    <app-nav-bar
+      [links]="navBarLinks"
+      (newLinkEvent)="checkSession($event)"
+    ></app-nav-bar>
+  </ng-container>
   <router-outlet></router-outlet>
 </div>
 <app-footer></app-footer>

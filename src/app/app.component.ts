@@ -5,15 +5,17 @@ import { HttpParams } from '@angular/common/http';
 import { SportService } from './services/sport.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subject, takeUntil } from 'rxjs';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent implements OnDestroy, OnInit {
   private destroy$: Subject<void> = new Subject<void>();
   currentYear!: number;
+  exibirComponente: boolean = true;
 
   navBarLinks: NavBarLinks[] = [
     { id: 'englandSelect', leagueId: 39, name: 'England', isSelected: true },
@@ -25,8 +27,19 @@ export class AppComponent implements OnDestroy {
 
   constructor(
     private sportService: SportService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private route: ActivatedRoute
   ) {}
+
+  ngOnInit(): void {
+    this.route.params.subscribe((params: Params) => {
+      if (params['id']) {
+        this.exibirComponente = false;
+
+      }
+    });
+  }
+
 
   checkSession(selectedButton: number): void {
     let getSession = sessionStorage.getItem(selectedButton.toString());
