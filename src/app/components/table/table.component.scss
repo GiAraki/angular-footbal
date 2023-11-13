@@ -6,14 +6,12 @@
 .example-table-container {
   position: relative;
   min-height: 200px;
-  max-height: 700px;
+  max-height: 450px;
   margin-top: 60px;
   overflow: auto;
 }
 table{
   background-color: rgba(255, 255, 255, 0.7) !important;
-}
-table {
   width: 100%;
 }
 

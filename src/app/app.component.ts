@@ -11,7 +11,7 @@ import { Subject, takeUntil } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnDestroy {
   private destroy$: Subject<void> = new Subject<void>();
   currentYear!: number;
 
@@ -28,13 +28,11 @@ export class AppComponent implements OnInit, OnDestroy {
     private _snackBar: MatSnackBar
   ) {}
 
-  ngOnInit(): void {}
-
   checkSession(selectedButton: number): void {
     let getSession = sessionStorage.getItem(selectedButton.toString());
     if(getSession){
       let session = JSON.parse(getSession);
-      this.sportService.setSessionData(session.standings[0])
+      this.sportService.setSessionDataStandings(session.standings[0])
     }
     else{
       this.getData(selectedButton);
@@ -53,7 +51,7 @@ export class AppComponent implements OnInit, OnDestroy {
       .getStandings(params)
       .pipe(takeUntil(this.destroy$))
       .subscribe((data: StandingsResponse) => {
-        this.sportService.setSessionData(data.response[0].league.standings[0]);
+        this.sportService.setSessionDataStandings(data.response[0].league.standings[0]);
         sessionStorage.setItem(
           selectedButton.toString(),
           JSON.stringify(data.response[0].league)

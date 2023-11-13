@@ -3,6 +3,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { Standings } from 'src/app/models/standings';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-table',
@@ -16,8 +17,11 @@ export class TableComponent  {
   @Input() data: Standings[] = [];
   @Input() isLoadingResults: boolean = true;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
+  teamDetail(standing: Standings): void {
+    this.router.navigate(['/list', standing.team.id]);
+  }
 
 
 }
