@@ -26,19 +26,20 @@ export class NavBarComponent implements OnInit {
   }
 
   checkPreviousLink() {
-    let getSession = sessionStorage.getItem(this.selectedButton);
+    let getSession = sessionStorage.getItem('selectedLink');
     if (getSession) {
       let session = JSON.parse(getSession);
       this.selectedButton = session.id;
       this.changeLink(session.leagueId);
     } else {
-      sessionStorage.setItem(this.links[0].id, JSON.stringify(this.links[0]));
+      sessionStorage.setItem('selectedLink', JSON.stringify(this.links[0]));
       this.selectedButton = this.links[0].id;
-      this.changeLink(this.links[0].leagueId);
+      this.changeLink(this.links[0]);
     }
   }
 
-  changeLink(leagueId: number): void {
-    this.newLinkEvent.emit(leagueId);
+  changeLink(link: NavBarLinks): void {
+    sessionStorage.setItem('selectedLink', JSON.stringify(link));
+    this.newLinkEvent.emit(link.leagueId);
   }
 }

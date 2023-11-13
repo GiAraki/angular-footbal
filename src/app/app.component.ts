@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NavBarLinks } from './models/nav-bar-links';
+import { NavBarLinks, NavData } from './models/nav-bar-links';
 import { Errors, StandingsResponse } from './models/standings-response';
 import { HttpParams } from '@angular/common/http';
 import { SportService } from './services/sport.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subject, takeUntil } from 'rxjs';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, ActivationEnd, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -28,15 +28,15 @@ export class AppComponent implements OnDestroy, OnInit {
   constructor(
     private sportService: SportService,
     private _snackBar: MatSnackBar,
-    private route: ActivatedRoute
+    private route: Router
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: Params) => {
-      if (params['id']) {
-        this.exibirComponente = false;
-
+    this.route.events.subscribe((event) => {
+      if (event instanceof ActivationEnd) {
+        this.exibirComponente = (event.snapshot.data as NavData).showNav
       }
+
     });
   }
 

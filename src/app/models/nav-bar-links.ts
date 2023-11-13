@@ -4,3 +4,7 @@ export interface NavBarLinks {
   name: string;
   isSelected: boolean;
 }
+
+export interface NavData {
+  showNav: boolean;
+}
