@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { HttpClientModule, HttpParams } from '@angular/common/http';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,6 +14,7 @@ import { SportService } from 'src/app/services/sport.service';
   selector: 'app-standings-league-detail',
   standalone: true,
   imports: [MatSnackBarModule, HttpClientModule, TeamCardComponent, MatButtonModule],
+  providers: [DatePipe],
   templateUrl: './standings-league-detail.component.html',
   styleUrls: ['./standings-league-detail.component.css'],
 })
@@ -23,10 +25,14 @@ export class StandingsLeagueDetailComponent implements OnInit, OnDestroy {
   fixtureData: FixtureResponse[] = [];
   isLoading: boolean = true;
 
+  currentDate: string = '';
+  firstDay: string = '';
+
   constructor(
     private sportService: SportService,
     private _snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private datePipe: DatePipe
   ) {}
 
   ngOnInit() {
@@ -51,20 +57,25 @@ export class StandingsLeagueDetailComponent implements OnInit, OnDestroy {
   getData(): void {
     const currentDate = new Date();
     this.currentYear = currentDate.getFullYear();
+    this.currentDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd') || '' ;
+    this.firstDay = this.datePipe.transform(new Date(new Date().getFullYear(), 0, 1), 'yyyy-MM-dd')|| '';
 
     const params = new HttpParams()
       .set('team', this.id)
-      .set('season', this.currentYear);
+      .set('season', this.currentYear)
+      .set('from', this.firstDay)
+      .set('to', this.currentDate);
 
     this.sportService
       .getFixtures(params)
       .pipe(takeUntil(this.destroy$))
       .subscribe((data: Fixtures) => {
         let startIndex = Math.max(data.response.length - 10, 0);
-        this.fixtureData = data.response.slice(startIndex);
+        this.fixtureData = this.sortByDate(data.response.slice(startIndex));
+
         sessionStorage.setItem(
           `team-${this.id}`,
-          JSON.stringify(data.response.slice(startIndex))
+          JSON.stringify(this.fixtureData)
         );
         this.isLoading = false;
       }),
@@ -72,6 +83,12 @@ export class StandingsLeagueDetailComponent implements OnInit, OnDestroy {
         this._snackBar.open(err.report, 'close');
         this.isLoading = false;
       };
+  }
+
+  sortByDate(data: FixtureResponse[]) {
+    return data.sort((a, b) => {
+      return new Date(a.fixture.date).getTime() - new Date(b.fixture.date).getTime();
+    });
   }
 
   ngOnDestroy() {

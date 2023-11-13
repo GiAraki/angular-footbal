@@ -19,10 +19,10 @@ export class AppComponent implements OnDestroy, OnInit {
 
   navBarLinks: NavBarLinks[] = [
     { id: 'englandSelect', leagueId: 39, name: 'England', isSelected: true },
-    { id: 'spainSelect', leagueId: 107, name: 'Spain', isSelected: false },
-    { id: 'germanySelect', leagueId: 61, name: 'Germany', isSelected: false },
-    { id: 'franceSelect', leagueId: 78, name: 'France', isSelected: false },
-    { id: 'italySelect', leagueId: 71, name: 'Italy', isSelected: false },
+    { id: 'spainSelect', leagueId: 140, name: 'Spain', isSelected: false },
+    { id: 'germanySelect', leagueId: 78, name: 'Germany', isSelected: false },
+    { id: 'franceSelect', leagueId: 61, name: 'France', isSelected: false },
+    { id: 'italySelect', leagueId: 135, name: 'Italy', isSelected: false },
   ];
 
   constructor(
