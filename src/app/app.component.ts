@@ -42,13 +42,15 @@ export class AppComponent implements OnDestroy, OnInit {
 
 
   checkSession(selectedButton: number): void {
-    let getSession = sessionStorage.getItem(selectedButton.toString());
-    if(getSession){
-      let session = JSON.parse(getSession);
-      this.sportService.setSessionDataStandings(session.standings[0])
-    }
-    else{
-      this.getData(selectedButton);
+    if (selectedButton){
+      let getSession = sessionStorage.getItem(selectedButton.toString());
+      if(getSession){
+        let session = JSON.parse(getSession);
+        this.sportService.setSessionDataStandings(session.standings[0])
+      }
+      else{
+        this.getData(selectedButton);
+      }
     }
   }
 
